@@ -60,7 +60,7 @@ public class Deck {
 			throw new EmptyDeckException();
 		}
 		
-		return cards.remove(cards.size() - 1);
+		return cards.remove(0);
 	}
 
 	public boolean isEmpty() {

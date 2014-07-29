@@ -90,4 +90,32 @@ public class CardTest {
 				
 	}
 
+	@Test
+	public void testDifferentHashcodeForDifferentRank() {
+		//given
+		Card cardA = new Card(Suit.DIAMONDS, Rank.QUEEN);
+		Card cardB = new Card(Suit.DIAMONDS, Rank.KING);
+		
+		//when
+		int hashcodeA = cardA.hashCode();
+		int hashcodeB = cardB.hashCode();
+		
+		//then
+		assertNotEquals(hashcodeA, hashcodeB, "Cards should have different hashcodes");
+		
+	}
+
+	@Test
+	public void testDifferentRankAreNotEqual() {
+		//given
+		Card cardA = new Card(Suit.SPADES, Rank.THREE);
+		Card cardB = new Card(Suit.SPADES, Rank.TEN);
+		
+		//when
+		boolean result = cardA.equals(cardB);
+		
+		//then
+		assertFalse(result, "Cards should not have been equal");
+				
+	}
 }

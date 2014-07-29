@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+ 
+<suite name="CA" verbose="1" >
+  <test name="Unit Tests"   >
+    <packages>
+      <package name="org.sigix.cards" />
+   </packages>
+ </test>
+</suite>
