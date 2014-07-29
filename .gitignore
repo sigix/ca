@@ -4,3 +4,6 @@
 .project
 .settings
 test-output
+ca.iml
+ca.ipr
+ca.iws
