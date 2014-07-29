@@ -7,27 +7,29 @@ import java.util.List;
 
 import org.sigix.cards.Card.Rank;
 import org.sigix.cards.Card.Suit;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class DeckTest {
 	
+	private static final int STANDARD_DECK_CARD_COUNT = 52;
+	
 	private Deck standardDeck;
 	
-	@BeforeTest
+	@BeforeMethod
 	public void setupFixtures() {
 		standardDeck = Deck.createStandardDeck();
 	}
 
 	@Test
-	public void standardDeckHas52Cards() {
+	public void standardDeckHasCorrectNumberOfCards() {
 		//given fixtures
 		
 		//when
 		List<Card> cards = standardDeck.getCards();
 		
 		//then
-		assertEquals(cards.size(), 52, "Wrong number of cards in standard deck");
+		assertEquals(cards.size(), STANDARD_DECK_CARD_COUNT, "Wrong number of cards in standard deck");
 	}
 	
 	@Test
@@ -71,6 +73,67 @@ public class DeckTest {
 		//then
 		assertNotEquals(standardDeck.getCards(), firstShuffleOrder, "Cards should have been shuffled");
 		assertEquals(standardDeck.getCards().size(), firstShuffleOrder.size(), "Shuffling should not change size of deck");
+	}
+	
+	// testDealOne returns a card
+	@Test
+	public void dealOneReturnsACard() {
+		//given fixtures
+		
+		//when
+		Card card = standardDeck.dealOneCard();
+		
+		//then
+		assertNotNull(card);
+	}
+	
+	@Test
+	public void dealOneRemovesCardFromDeck() {
+		//given fixtures
+		
+		//when
+		Card card = standardDeck.dealOneCard();
+		
+		//then
+		assertFalse(standardDeck.getCards().contains(card), "Dealt card should no longer remain in the deck");
+	}
+	
+	@Test
+	public void dealOneCanBeCalledCorrectNumberOfTimesUntilDeckIsEmpty() {
+		//given fixtures
+		
+		//when
+		int count = dealAllCards(standardDeck);
+		
+		//then
+		assertEquals(count, STANDARD_DECK_CARD_COUNT, "Expected to be able to deal " + STANDARD_DECK_CARD_COUNT + " cards from a standard deck");
+	}
+
+	
+	@Test
+	public void callingDealOneOnEmptyDeckResultsInException() {
+		//given
+		boolean caughtExpectedException = false;
+		dealAllCards(standardDeck);
+		
+		//when / then
+		try {
+			standardDeck.dealOneCard();
+		} catch (EmptyDeckException e) {
+			caughtExpectedException = true;
+		}
+		
+		//then
+		assertTrue(caughtExpectedException, "Did not catch expected exception trying to deal card from empty deck");
+	}
+
+	private static int dealAllCards(Deck deck) {
+		int count = 0;
+		while (!deck.isEmpty()) {
+			deck.dealOneCard();
+			count++;
+		}
+		return count;
 	}
 
 }
