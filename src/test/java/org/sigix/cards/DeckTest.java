@@ -60,6 +60,24 @@ public class DeckTest {
 		assertNotEquals(standardDeck.getCards(), originalOrder, "Cards should have been shuffled");
 		assertEquals(standardDeck.getCards().size(), originalOrder.size(), "Shuffling should not change size of deck");
 	}
+	
+	@Test
+	public void shuffledDeckStillHasOneSuitOfEachRank() {
+		//given
+		standardDeck.shuffle();
+		
+		//when
+		List<Card> cards = standardDeck.getCards();
+		
+		//then
+		for (Suit suit : Suit.values()) {
+			for (Rank rank : Rank.values()) {
+				Card card = new Card(suit, rank);
+				assertTrue(cards.contains(card), "Deck missing card " + card);
+			}
+		}
+
+	}
 
 	@Test
 	public void testReShuffle() {
@@ -116,7 +134,7 @@ public class DeckTest {
 		boolean caughtExpectedException = false;
 		dealAllCards(standardDeck);
 		
-		//when / then
+		//when
 		try {
 			standardDeck.dealOneCard();
 		} catch (EmptyDeckException e) {
