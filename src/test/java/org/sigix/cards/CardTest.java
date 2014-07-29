@@ -1,11 +1,11 @@
 package org.sigix.cards;
 
+import static org.testng.Assert.assertEquals;
+
+import org.sigix.cards.Card.Rank;
+import org.sigix.cards.Card.Suit;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import static org.testng.Assert.*;
-import static org.sigix.cards.Card.Rank;
-import static org.sigix.cards.Card.Suit;
 
 public class CardTest {
 
@@ -33,29 +33,4 @@ public class CardTest {
 		
 	}
 
-	@DataProvider
-	public Object[][] provideConstructorCodesAndExpectations() {
-		
-		return new Object[][] {
-			{"AS", Rank.ACE, Suit.SPADES},
-			{"2H", Rank.TWO, Suit.HEARTS},
-			{"10D", Rank.TEN, Suit.DIAMONDS},
-			{"JC", Rank.JACK, Suit.CLUBS},
-		};
-	}
-	
-	@Test(dataProvider = "provideConstructorCodesAndExpectations")
-	public void testCodeConstructor(String code, Rank expectedRank, Suit expectedSuit) {
-		//given provided code
-		
-		//when
-//		Card card = new Card(code);
-		
-
-		//then
-//		assertEquals(card.getRank(), expectedRank, "Card has wrong rank");
-//		assertEquals(card.getSuit(), expectedSuit, "Card has wrong suit");
-
-		
-	}
 }
