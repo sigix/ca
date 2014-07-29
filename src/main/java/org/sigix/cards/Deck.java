@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.sigix.cards.Card.Rank;
+import org.sigix.cards.Card.Suit;
+
 public class Deck {
 	
 	private final List<Card> cards;
@@ -13,7 +16,19 @@ public class Deck {
 	}
 
 	public static Deck createStandardDeck() {
-		return new Deck(52);
+		Deck deck = new Deck(52);
+		
+		for (Suit suit : Suit.values()) {
+			for (Rank rank : Rank.values()) {
+				deck.add(new Card(suit, rank));
+			}
+		}
+		
+		return deck;
+	}
+
+	private void add(Card card) {
+		cards.add(card);
 	}
 
 	public List<Card> getCards() {
