@@ -2,6 +2,7 @@ package org.sigix.cards;
 
 import static org.testng.Assert.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.sigix.cards.Card.Rank;
@@ -43,6 +44,33 @@ public class DeckTest {
 				assertTrue(cards.contains(card), "Deck missing card " + card);
 			}
 		}
-		
 	}
+	
+	@Test
+	public void testShuffle() {
+		//given
+		List<Card> originalOrder = new LinkedList<Card>(standardDeck.getCards());
+		
+		//when
+		standardDeck.shuffle();
+		
+		//then
+		assertNotEquals(standardDeck.getCards(), originalOrder, "Cards should have been shuffled");
+		assertEquals(standardDeck.getCards().size(), originalOrder.size(), "Shuffling should not change size of deck");
+	}
+
+	@Test
+	public void testReShuffle() {
+		//given
+		standardDeck.shuffle();
+		List<Card> firstShuffleOrder = new LinkedList<Card>(standardDeck.getCards());
+		
+		//when
+		standardDeck.shuffle();
+		
+		//then
+		assertNotEquals(standardDeck.getCards(), firstShuffleOrder, "Cards should have been shuffled");
+		assertEquals(standardDeck.getCards().size(), firstShuffleOrder.size(), "Shuffling should not change size of deck");
+	}
+
 }
